@@ -1,0 +1,316 @@
+% \documentclass[10pt, handout]{beamer}
+\documentclass[10pt]{beamer}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PDFPC TOGGLE - Set to false for Texifier compatibility
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newif\ifusepdfpc
+% \usepdfpctrue   % Enable pdfpc (for pdfpc presenter console)
+\usepdfpcfalse  % Disable pdfpc (for Texifier IDE compatibility)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ASSET PATH - Allow LaTeX to find .sty and images in assets/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+\providecommand*{\input@path}{}
+\g@addto@macro\input@path{{assets/}}
+\makeatother
+\graphicspath{{assets/}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THEME - Moloch Theme (clean, information-dense)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usetheme{moloch}
+\usefonttheme[onlymath]{serif}
+
+% Moloch theme options
+\molochset{
+  progressbar=foot,  % Move progress bar to footer to avoid "=" issue
+  sectionpage=none,  % We'll define our own custom section page
+  block=fill
+}
+
+% Custom footline with page numbers in Stevens red
+\providecommand{\insertmainframenumber}{??}
+
+\setbeamertemplate{footline}{
+  \hfill
+  \usebeamercolor[fg]{page number in head/foot}
+  \usebeamerfont{page number in head/foot}
+  \textcolor{stevensred}{\insertframenumber\,/\,\insertmainframenumber}%
+  \hspace*{4pt}
+  \vspace{4pt}
+}
+
+\setbeamercolor{page number in head/foot}{fg=stevensred}
+\setbeamerfont{page number in head/foot}{size=\normalsize}
+
+% Appendix frame numbering
+\usepackage{appendixnumberbeamer}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% COLOR DEFINITIONS (Stevens color compatibility)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{xcolor}
+
+% Stevens Primary Colors
+\definecolor{maincolor}{RGB}{163,38,56}  % Stevens red
+\colorlet{stevensred}{maincolor}
+\definecolor{stevensdarkgray}{RGB}{54,61,69}
+\definecolor{stevensdarkblue}{RGB}{0,67,128}
+\definecolor{stevensmediumblue}{RGB}{72,150,207}
+\definecolor{stevensmediumorange}{RGB}{231,132,46}
+\definecolor{stevensmediumgold}{RGB}{235,199,59}
+\definecolor{stevenslightgray}{RGB}{228,229,230}
+\definecolor{stevenslightblue}{RGB}{232,242,252}
+\definecolor{stevenslightorange}{RGB}{255,242,232}
+\definecolor{stevenslightgold}{RGB}{255,250,230}
+\definecolor{stevenslightred}{RGB}{255,230,232}
+
+% SINTEF colors (for legacy compatibility)
+\definecolor{sintefgrey}{RGB}{228,229,230}
+\definecolor{sintefdarkgrey}{RGB}{127,127,127}
+\colorlet{sintefgray}{sintefgrey}
+\colorlet{sintefdarkgray}{sintefdarkgrey}
+\colorlet{stevensgray}{sintefdarkgrey}
+\definecolor{sinteflightgreen}{RGB}{205,250,225}
+\definecolor{sintefgreen}{RGB}{20,185,120}
+\definecolor{sintefdarkgreen}{RGB}{0,70,40}
+\definecolor{sintefyellow}{RGB}{200,155,20}
+\definecolor{sintefred}{RGB}{190,60,55}
+\definecolor{sinteflilla}{RGB}{120,0,80}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MOLOCH COLOR CUSTOMIZATION - STEVENS THEMED
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setbeamercolor{alerted text}{fg=stevensred}
+\setbeamercolor{progress bar}{fg=stevensred, bg=stevenslightgray}
+\setbeamercolor{title separator}{fg=stevensred}
+\setbeamercolor{progress bar in head/foot}{fg=stevensred, bg=stevenslightgray}
+\setbeamercolor{progress bar in section page}{fg=stevensred, bg=stevenslightgray}
+
+\setbeamercolor{frametitle}{fg=white, bg=stevensred}
+\setbeamercolor{framesubtitle}{fg=white!80}
+
+\setbeamercolor{block title}{fg=white, bg=stevensred}
+\setbeamercolor{block body}{fg=black, bg=stevenslightgray}
+\setbeamercolor{block title alerted}{fg=white, bg=sintefred}
+\setbeamercolor{block body alerted}{fg=black, bg=stevenslightorange}
+\setbeamercolor{block title example}{fg=white, bg=sintefgreen}
+\setbeamercolor{block body example}{fg=black, bg=sinteflightgreen}
+
+\setbeamercolor{standout}{fg=white, bg=stevensred}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CUSTOM TITLE PAGE WITH STEVENS BRANDING
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+\define@key{beamerframe}{plain}[true]{%
+  \beamer@frametopskip=0pt\relax%
+  \beamer@framebottomskip=0pt\relax%
+  \beamer@frametopskipautobreak=0pt\relax%
+  \def\beamer@frametemplate{}%
+  \def\beamer@entrycode{\vspace*{-\headheight}}%
+}
+\makeatother
+
+\setbeamertemplate{title page}{
+  \vspace{0.8cm}
+  \begin{center}
+    \includegraphics[width=0.45\textwidth]{assets/stevens-long-logo}
+  \end{center}
+  \vspace{0.4cm}
+  \begin{center}
+    {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par}
+  \end{center}
+  \vspace{0.15cm}
+  \begin{center}
+    {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}
+  \end{center}
+  \vspace{0.15cm}
+  {\color{stevensred}\rule{\textwidth}{1.5pt}}
+  \vspace{0.05cm}
+  \begin{center}
+    {\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par}
+    \vspace{0.1cm}
+    {\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute\par}
+    \vspace{0.1cm}
+    {\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\par}
+  \end{center}
+  \vspace{0.8cm}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CUSTOM COLORBLOCK ENVIRONMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% colorblock: \begin{colorblock}[text color]{background color}{title}
+\newenvironment{colorblock}[3][black]{%
+  \begingroup
+  \setbeamercolor{block title}{fg=#1, bg=#2}
+  \setbeamercolor{block body}{fg=#1, bg=#2}
+  \begin{block}{#3}
+}{%
+  \end{block}
+  \endgroup
+}
+
+% contribblock: colored header (white text), light gray body (black text)
+\definecolor{contribbg}{RGB}{245,245,245}
+\newenvironment{contribblock}[1]{%
+  \begingroup
+  \setbeamercolor{block title}{fg=white, bg=stevensred}
+  \setbeamercolor{block body}{fg=black, bg=contribbg}
+  \begin{block}{#1}
+}{%
+  \end{block}
+  \endgroup
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PACKAGES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{subcaption}
+\usepackage{makecell}
+\usepackage{caption}
+\captionsetup{font=scriptsize}
+
+% Speaker notes for pdfpc presenter (conditional loading)
+\ifusepdfpc
+  \usepackage{pgfpages}
+  \setbeameroption{show notes on second screen=bottom}
+\else
+  \providecommand{\note}[1]{}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CHECKMARKS AND CROSS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{pifont}
+\newcommand{\cmark}{\textcolor{sintefgreen}{\ding{51}}}
+\newcommand{\xmark}{\textcolor{sintefred}{\ding{55}}}
+
+\hypersetup{colorlinks=true, urlcolor=stevensdarkblue, linkcolor=stevensdarkblue}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CUSTOM LINK COMMAND
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\hrefcol}[2]{\textcolor{stevensdarkblue}{\href{#1}{#2}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION NAMES - Customize these for your talk
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\secnameI}{Introduction}
+\newcommand{\secnameII}{Methods}
+\newcommand{\secnameIII}{Results}
+\newcommand{\secnameIV}{Conclusion}
+
+\newcommand{\secfullI}{Background and Motivation}
+\newcommand{\secfullII}{Proposed Methodology}
+\newcommand{\secfullIII}{Experimental Results and Discussion}
+\newcommand{\secfullIV}{Summary and Future Directions}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CUSTOM SECTION PAGE WITH OUTLINE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcounter{outlineidx}
+
+\newcommand{\outlineitem}[3]{% #1=section num, #2=nickname, #3=full title
+  \setcounter{outlineidx}{#1}%
+  \ifnum\value{section}=\value{outlineidx}%
+    \par{\large\textbf{\textcolor{stevensred}{#2}}}\par\vspace{-0.2em}%
+    {\small\textcolor{stevensred}{#3}}\par\vspace{0.5em}%
+  \else%
+    \par{\large\textcolor{stevensgray!70}{#2}}\par\vspace{-0.2em}%
+    {\small\textcolor{stevensgray!50}{#3}}\par\vspace{0.5em}%
+  \fi%
+}
+
+\AtBeginSection[]{%
+  \begin{frame}[plain]
+    \vspace{1em}
+    \begin{minipage}{0.82\textwidth}
+      {\Large\textbf{\textcolor{stevensred}{Outline}}}
+    \end{minipage}%
+    \begin{minipage}{0.15\textwidth}
+      \raggedleft
+      \includegraphics[height=1.4cm]{assets/logo_RGB}
+    \end{minipage}
+    \par\vspace{0.5em}
+    {\color{stevensred}\rule{\textwidth}{1pt}}
+    \par\vspace{0.6em}
+    \outlineitem{1}{\secnameI}{\secfullI}%
+    \outlineitem{2}{\secnameII}{\secfullII}%
+    \outlineitem{3}{\secnameIII}{\secfullIII}%
+    \outlineitem{4}{\secnameIV}{\secfullIV}%
+  \end{frame}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% COMPATIBILITY COMMANDS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\course}[1]{\subtitle{#1}}
+\newcommand{\IDnumber}[1]{}
+\newcommand{\titlebackground}{\@ifstar{\@gobble}{\@gobble}}
+\newcommand{\footlinecolor}[1]{}
+\newcommand{\themecolor}[1]{}
+
+\newcommand{\backmatter}[1][]{%
+  \begin{frame}[standout]
+    Thank you for listening!\\[1em]
+    Questions?
+  \end{frame}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TITLE PAGE - Customize these
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Your Presentation Title Here}
+\course{Course Name or Event}
+\author{Your Name}
+\institute{Stevens Institute of Technology}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+% Title frame
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\secnameI}
+\input{sections/001-introduction.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\secnameII}
+\input{sections/002-methods.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\secnameIII}
+\input{sections/003-results.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\secnameIV}
+\input{sections/004-conclusion.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

@@ -1,0 +1,122 @@
+% ============================================
+% METHODS - Showcase: tables, blocks, enumerations, math
+% ============================================
+
+% --------------------------------------------
+% Slide: Comparison Table with Checkmarks
+% --------------------------------------------
+\begin{frame}{Comparison of Approaches}
+\framesubtitle{Why existing methods fall short}
+
+\begin{table}
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+\textbf{Property} & \textbf{Method A} & \textbf{Method B} & \textbf{Ours} \\
+\midrule
+Scalable & \cmark & \xmark & \cmark \\
+Interpretable & \xmark & \cmark & \cmark \\
+Low latency & \cmark & \cmark & \cmark \\
+Domain-agnostic & \xmark & \xmark & \cmark \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{0.5em}
+
+\begin{colorblock}[white]{stevensred}{Advantage}
+Our approach is the first to satisfy all four desirable properties simultaneously.
+\end{colorblock}
+
+\end{frame}
+
+% --------------------------------------------
+% Slide: Pipeline / Enumeration
+% --------------------------------------------
+\begin{frame}{Proposed Pipeline}
+\framesubtitle{Three-stage processing}
+
+\begin{columns}
+\begin{column}{0.48\textwidth}
+\textbf{Stage 1: Data Preprocessing}
+\begin{enumerate}
+    \item Collect raw data from source
+    \item Clean and normalize
+    \item Split into train/val/test
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Stage 2: Model Training}
+\begin{enumerate}
+    \item Fine-tune pre-trained model
+    \item Hyperparameter search
+    \item Early stopping on validation set
+\end{enumerate}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Stage 3: Evaluation}
+\begin{enumerate}
+    \item Run on held-out test set
+    \item Compute metrics (P, R, F1)
+    \item Statistical significance tests
+\end{enumerate}
+
+\vspace{0.5em}
+
+\begin{colorblock}[white]{stevensred}{Key Insight}
+Pre-training captures domain knowledge; fine-tuning adapts with minimal supervision.
+\end{colorblock}
+
+\end{column}
+\end{columns}
+\end{frame}
+
+% --------------------------------------------
+% Slide: Block Types (standard, alert, example)
+% --------------------------------------------
+\begin{frame}{Block Styles}
+\framesubtitle{Three built-in block types}
+
+\begin{block}{Standard Block}
+This is a standard block with the Stevens red header. Use it for general information, definitions, or neutral content.
+\end{block}
+
+\vspace{0.3em}
+
+\begin{alertblock}{Alert Block}
+This is an alert block. Use it for warnings, limitations, or important caveats that readers should be aware of.
+\end{alertblock}
+
+\vspace{0.3em}
+
+\begin{exampleblock}{Example Block}
+This is an example block with a green header. Use it for examples, case studies, or positive results.
+\end{exampleblock}
+\end{frame}
+
+% --------------------------------------------
+% Slide: Math and Formulas
+% --------------------------------------------
+\begin{frame}{Mathematical Formulation}
+
+\textbf{Objective function:}
+\[
+\mathcal{L}(\theta) = -\frac{1}{N}\sum_{i=1}^{N} \log p_\theta(y_i \mid x_i) + \lambda \|\theta\|_2^2
+\]
+
+\vspace{0.3em}
+\textbf{Where:}
+\begin{itemize}
+    \item $\theta$ --- model parameters
+    \item $(x_i, y_i)$ --- input-output pairs
+    \item $\lambda$ --- regularization strength
+\end{itemize}
+
+\vspace{0.5em}
+
+\begin{colorblock}[white]{stevensred}{Note}
+The regularization term prevents overfitting when training data is limited.
+\end{colorblock}
+
+\end{frame}

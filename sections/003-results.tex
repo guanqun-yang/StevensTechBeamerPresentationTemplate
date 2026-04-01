@@ -1,0 +1,96 @@
+% ============================================
+% RESULTS - Showcase: data tables, colorblocks, columns
+% ============================================
+
+% --------------------------------------------
+% Slide: Main Results Table
+% --------------------------------------------
+\begin{frame}{Main Results}
+\framesubtitle{Performance comparison on benchmark dataset}
+
+\begin{table}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+\textbf{Method} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} & \textbf{Acc.} \\
+\midrule
+Baseline A (100\% data) & .834 & .821 & .827 & 85.3 \\
+Baseline B (100\% data) & .856 & .847 & .851 & 87.1 \\
+\midrule
+Ours (10\% data) & .871 & .863 & \textbf{.867} & \textbf{88.4} \\
+Ours (100\% data) & .912 & .905 & \textbf{.908} & \textbf{91.7} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{0.8em}
+
+\begin{colorblock}[white]{stevensred}{Key Finding}
+With only \textbf{10\% of training data}, our method already outperforms baselines using full data.
+\end{colorblock}
+
+\end{frame}
+
+% --------------------------------------------
+% Slide: Ablation Study
+% --------------------------------------------
+\begin{frame}{Ablation Study}
+\framesubtitle{Contribution of each component}
+
+\begin{table}
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Configuration} & \textbf{F1 Score} & \textbf{$\Delta$} \\
+\midrule
+Full model & \textbf{0.908} & --- \\
+$-$ Component A & 0.881 & $-$0.027 \\
+$-$ Component B & 0.873 & $-$0.035 \\
+$-$ Component C & 0.854 & $-$0.054 \\
+$-$ All components & 0.827 & $-$0.081 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{0.5em}
+\textbf{Key insight:} Component C contributes the most ($-$5.4 F1), confirming our hypothesis.
+\end{frame}
+
+% --------------------------------------------
+% Slide: Summary with Two Columns
+% --------------------------------------------
+\begin{frame}{Results Summary}
+
+\begin{columns}
+\begin{column}{0.55\textwidth}
+\textbf{Findings:}
+\begin{itemize}
+    \item Outperforms all baselines on F1 and accuracy
+    \item Robust under low-resource conditions (10\% data)
+    \item Component C is the most impactful addition
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Limitations:}
+\begin{itemize}
+    \item Higher inference latency than Baseline A
+    \item Not yet tested on multilingual data
+\end{itemize}
+\end{column}
+\begin{column}{0.42\textwidth}
+
+\begin{colorblock}[white]{stevensred}{Takeaway}
+Strong performance with minimal supervision demonstrates practical applicability.
+\end{colorblock}
+
+\vspace{0.5em}
+\textbf{Next steps:}
+\begin{itemize}
+    \item Multilingual evaluation
+    \item Deployment study
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
