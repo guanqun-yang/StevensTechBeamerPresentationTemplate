@@ -42,7 +42,7 @@ A clean, professional **Beamer presentation template** in official **Stevens Ins
    pdflatex main.tex
    pdflatex main.tex   # run twice for correct page numbers and outlines
    ```
-   Or use your preferred LaTeX editor (Overleaf, Texifier, TeXShop, VS Code + LaTeX Workshop).
+   Or use your preferred LaTeX editor, such as Overleaf, Texifier, and VSCode + Tectonic.
 
 ## Project Structure
 
