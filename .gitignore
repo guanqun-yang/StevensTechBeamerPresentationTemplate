@@ -1,0 +1,25 @@
+.claude/
+
+## LaTeX intermediate files
+*.aux
+*.bbl
+*.blg
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.run.xml
+*.bcf
+*.vrb
+
+## Output
+*.pdf
+
+## OS files
+.DS_Store
+Thumbs.db
